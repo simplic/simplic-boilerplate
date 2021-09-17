@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simplic.Boilerplate.SchemaRegistry
+namespace Simplic.PlugIn.Boilerplate.Server
 {
-    public class Class1
+    public class Init
     {
     }
 }
