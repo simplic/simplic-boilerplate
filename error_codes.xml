@@ -1,4 +1,4 @@
-<ErrorCodes Module="Simplic.PlugIn" Localization="/simplic-repository/Localization/appcollection.*.json">
+<ErrorCodes Module="Simplic.Boilerplate" Localization="/simplic-repository/Localization/boilerplate.*.json">
   <Error Code="SB-0000001">
     ...
   </Error>
