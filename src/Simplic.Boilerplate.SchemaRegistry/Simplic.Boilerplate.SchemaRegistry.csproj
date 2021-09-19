@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Event\ContactDeletedEvent.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Event\ContactCreatedEvent.cs" />

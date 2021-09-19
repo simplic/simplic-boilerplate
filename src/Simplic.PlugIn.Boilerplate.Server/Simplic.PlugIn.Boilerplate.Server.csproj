@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ContactController.cs" />
     <Compile Include="Flow\OnContactCreatedEventNode.cs" />
+    <Compile Include="Hub\ContactHub.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="Flow\OnContactUpdatedEventNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
