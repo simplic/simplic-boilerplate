@@ -33,6 +33,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.PlugIn.Boilerplate.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Boilerplate.Data.DB", "Simplic.Boilerplate.Data.DB\Simplic.Boilerplate.Data.DB.csproj", "{0B3A3CC7-9030-4792-989D-E0EB94ECA661}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ENV", "ENV", "{A87C1C89-04F5-4DE4-BC58-B9DC49CFA41D}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		..\error_codes.xml = ..\error_codes.xml
+		..\infrastructure.json = ..\infrastructure.json
+		..\project.repocli.json = ..\project.repocli.json
+		..\release-notes.xml = ..\release-notes.xml
+		..\user-release-notes.xml = ..\user-release-notes.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

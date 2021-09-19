@@ -1,0 +1,5 @@
+<ErrorCodes Module="Simplic.PlugIn" Localization="/simplic-repository/Localization/appcollection.*.json">
+  <Error Code="SB-0000001">
+    ...
+  </Error>
+</ErrorCodes>

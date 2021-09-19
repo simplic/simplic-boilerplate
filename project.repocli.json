@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "connectionString": "server=sc-dev02;dbn=simplic;links=tcpip;charset=UTF-8;uid=***;pwd=***"
+  },
+  "commands": [
+    {
+      "type": "copy",
+      "target": "simplic-repository\\public\\HtmlSource\\LocationSelector.html",
+      "destination": "/public/UI/HtmlSource/LocationSelector.html"
+    }
+  ]
+}
