@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simplic.PlugIn.Boilerplate.Client
+namespace Simplic.PlugIn.Boilerplate.Server.Flow
 {
-    public class Class1
+    class OnContactUpdatedEventNode
     {
     }
 }
