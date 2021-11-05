@@ -1,6 +1,8 @@
-﻿namespace Simplic.Boilerplate
+﻿using System;
+
+namespace Simplic.Boilerplate
 {
-    public interface IContactRepository
+    public interface IContactRepository : IRepository<Guid, Contact>
     {
     }
 }

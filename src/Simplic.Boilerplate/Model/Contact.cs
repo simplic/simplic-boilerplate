@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Simplic.Data.NoSql;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simplic.Boilerplate
 {
-    public class Contact
+    public class Contact : IDocument<Guid>
     {
-        public Guid Guid { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public IList<Address> Addresses { get; set; } = new List<Address>();
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public bool IsDeleted { get; set; }
     }
 }

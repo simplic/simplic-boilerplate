@@ -1,6 +1,6 @@
 ﻿namespace Simplic.Boilerplate
 {
-    public interface IContactService
+    public interface IContactService : IContactRepository
     {
     }
 }
