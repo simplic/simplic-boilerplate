@@ -2,7 +2,7 @@
 
 namespace Simplic.Boilerplate
 {
-    public interface IRepository<TId, TObject>
+    public interface IMongoDbRepository<TId, TObject>
     {
         Task<int> CommitAsync();
         Task CreateAsync(TObject document);

@@ -2,7 +2,7 @@
 
 namespace Simplic.Boilerplate
 {
-    public interface IContactRepository : IRepository<Guid, Contact>
+    public interface IContactRepository : IMongoDbRepository<Guid, Contact>
     {
     }
 }
