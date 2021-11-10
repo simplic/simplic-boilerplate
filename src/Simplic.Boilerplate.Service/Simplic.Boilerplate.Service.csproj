@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="ContactEventService.cs" />
     <Compile Include="ContactService.cs" />
+    <Compile Include="FluentBuilder\FluentContactTransactionBuilder.cs" />
+    <Compile Include="FluentBuilder\ICanAddOrCommitTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,5 +62,6 @@
       <Version>1.5.120.1201</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

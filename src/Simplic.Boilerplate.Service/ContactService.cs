@@ -6,18 +6,20 @@ namespace Simplic.Boilerplate.Service
     {
         private readonly IContactRepository contactRepository;
         private readonly IContactEventService contactEventService;
+        private readonly FluentContactTransactionBuilder fluentContactTransactionBuilder;
 
         public ContactService(IContactEventService contactEventService, IContactRepository contactRepository)
         {
             this.contactEventService = contactEventService;
             this.contactRepository = contactRepository;
+            fluentContactTransactionBuilder = new FluentContactTransactionBuilder(contactRepository);
         }
 
         public async Task<int> CreateAsync(Contact contact)
         {
             await contactEventService.SendCreatedEventAsync(contact);
-            await contactRepository.CreateAsync(contact);
-            return await contactRepository.CommitAsync();
+
+            return await fluentContactTransactionBuilder.AddCreate(contact).CommitAsync();
         }
 
         public async Task<int> DeleteAsync(Contact contact)
