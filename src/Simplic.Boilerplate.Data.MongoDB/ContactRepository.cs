@@ -8,6 +8,5 @@ namespace Simplic.Boilerplate.Data.MongoDB
         public ContactRepository(IMongoContext context) : base(context) { }
 
         public ContactRepository(IMongoContext context, string configurationKey) : base(context, configurationKey) { }
-
     }
 }
