@@ -5,7 +5,7 @@ using Simplic.Boilerplate.Shared;
 
 namespace Simplic.Boilerplate.Client
 {
-    public class ContactClient : WebApi.Client.ClientBase
+    public class ContactClient : WebApi.Client.ClientBase, IContactClient
     {
         public ContactClient(string url) : base(url)
         {

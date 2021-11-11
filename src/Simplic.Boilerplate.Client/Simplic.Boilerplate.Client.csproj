@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContactClient.cs" />
+    <Compile Include="IContactHubClient.cs" />
     <Compile Include="ContactHubClient.cs" />
+    <Compile Include="IContactClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

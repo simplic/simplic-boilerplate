@@ -4,7 +4,7 @@ using Simplic.Boilerplate.Shared;
 
 namespace Simplic.Boilerplate.Client
 {
-    public class ContactHubClient : WebApi.Client.HubClientBase
+    public class ContactHubClient : WebApi.Client.HubClientBase, IContactHubClient
     {
         protected ContactHubClient(WebApi.Client.IClient client, Configuration.IConnectionConfigurationService connectionConfigurationService) : base(client, connectionConfigurationService)
         {
