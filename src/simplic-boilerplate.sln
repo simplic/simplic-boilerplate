@@ -51,6 +51,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Simplic.Boilerplate.Shared"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems*{48ea2864-5a47-4795-b3fc-480308bcdc3d}*SharedItemsImports = 4
 		Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems*{5863d89d-ff72-41c4-9884-fee0189c6498}*SharedItemsImports = 4
 		Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems*{6106253c-68ea-412a-8507-70185c08c934}*SharedItemsImports = 13
 	EndGlobalSection

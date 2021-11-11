@@ -27,7 +27,7 @@ namespace Simplic.PlugIn.Boilerplate.Server
         [SwaggerResponse(System.Net.HttpStatusCode.OK, "Returns a contact instance by id", typeof(ContactModel))]
         [SwaggerResponse(System.Net.HttpStatusCode.BadRequest, "Returns a message if the contact could not be found using the given id", typeof(string))]
         [SwaggerResponse(System.Net.HttpStatusCode.InternalServerError, "If retrieving fails due to a technical reason", typeof(Exception))]
-        public async Task<IHttpActionResult> Get(Guid id)
+        public async Task<IHttpActionResult> GetAsync(Guid id)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Simplic.PlugIn.Boilerplate.Server
         [HttpPost]
         [SwaggerResponse(System.Net.HttpStatusCode.OK, "Create a new contact instance and returns the created contact", typeof(ContactModel))]
         [SwaggerResponse(System.Net.HttpStatusCode.InternalServerError, "If creating fails due to a technical reason", typeof(Exception))]
-        public async Task<IHttpActionResult> Create(CreateContactRequest model)
+        public async Task<IHttpActionResult> CreateAsync(CreateContactRequest model)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace Simplic.PlugIn.Boilerplate.Server
         [HttpPut]
         [SwaggerResponse(System.Net.HttpStatusCode.OK, "Updates an exusting contact instance and returns the created contact", typeof(ContactModel))]
         [SwaggerResponse(System.Net.HttpStatusCode.InternalServerError, "If updating fails due to a technical reason", typeof(Exception))]
-        public async Task<IHttpActionResult> Update(UpdateContactRequest model)
+        public async Task<IHttpActionResult> UpdateAsync(UpdateContactRequest model)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace Simplic.PlugIn.Boilerplate.Server
         [HttpDelete]
         [SwaggerResponse(System.Net.HttpStatusCode.OK, "Deletes an existing contact", typeof(DeleteContactResponse))]
         [SwaggerResponse(System.Net.HttpStatusCode.InternalServerError, "If deleting fails due to a technical reason", typeof(Exception))]
-        public async Task<IHttpActionResult> Delete(Guid id)
+        public async Task<IHttpActionResult> DeleteAsync(Guid id)
         {
             try
             {
