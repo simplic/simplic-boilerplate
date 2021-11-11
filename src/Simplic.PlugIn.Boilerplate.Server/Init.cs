@@ -5,6 +5,7 @@ using Simplic.Framework.PlugIn;
 using System;
 using Unity;
 using Unity.Lifetime;
+using AutoMapper;
 
 namespace Simplic.PlugIn.Boilerplate.Server
 {
@@ -19,8 +20,16 @@ namespace Simplic.PlugIn.Boilerplate.Server
         {
             var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
 
-            Console.WriteLine("Initialize task services");
+            // Register automapper
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new ContactMapperProfile());
+            });
 
+            var mapper = config.CreateMapper();
+            container.RegisterInstance<IMapper>("BoilerplateMapper", mapper);
+
+            // Register hub
             container.RegisterType<IContactHub, ContactHub>(new ContainerControlledLifetimeManager());
             container.RegisterFactory<IHubContext<IContactHubClient>>((_) =>
             {

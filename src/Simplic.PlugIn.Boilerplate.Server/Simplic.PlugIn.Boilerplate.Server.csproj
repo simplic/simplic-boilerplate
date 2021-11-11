@@ -48,9 +48,13 @@
     <Compile Include="Hub\IContactHubClient.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="Flow\OnContactUpdatedEventNode.cs" />
+    <Compile Include="Mapper\ContactMapperProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper">
+      <Version>10.1.1</Version>
+    </PackageReference>
     <PackageReference Include="CommonServiceLocator">
       <Version>2.0.5</Version>
     </PackageReference>
@@ -94,9 +98,7 @@
       <Name>Simplic.Boilerplate</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mapper\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
