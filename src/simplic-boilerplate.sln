@@ -43,9 +43,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ENV", "ENV", "{A87C1C89-04F
 		..\user-release-notes.xml = ..\user-release-notes.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplic.Boilerplate.Service.Test", "Simplic.Boilerplate.Service.Test\Simplic.Boilerplate.Service.Test.csproj", "{9414E74F-F125-4198-B2C5-7C2620E2FD32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simplic.Boilerplate.Service.Test", "Simplic.Boilerplate.Service.Test\Simplic.Boilerplate.Service.Test.csproj", "{9414E74F-F125-4198-B2C5-7C2620E2FD32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{5F3904D4-7BD9-4252-9E76-763ED014E73F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Simplic.Boilerplate.Shared", "Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.shproj", "{6106253C-68EA-412A-8507-70185C08C934}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems*{5863d89d-ff72-41c4-9884-fee0189c6498}*SharedItemsImports = 4
+		Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems*{6106253c-68ea-412a-8507-70185c08c934}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -116,6 +124,7 @@ Global
 		{8952B17F-7147-4E08-924B-4F40CE160FA9} = {45236EA4-57AE-469C-B6B3-1E5727C852BD}
 		{0B3A3CC7-9030-4792-989D-E0EB94ECA661} = {BF6D4AE8-0C22-4B91-96A3-2B4735629D13}
 		{9414E74F-F125-4198-B2C5-7C2620E2FD32} = {9E16C52E-91F3-4E18-B457-86486D10D1E2}
+		{6106253C-68EA-412A-8507-70185C08C934} = {5F3904D4-7BD9-4252-9E76-763ED014E73F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE11831F-1EE5-4166-B2DA-2051FF71AB10}

@@ -32,7 +32,7 @@ namespace Simplic.PlugIn.Boilerplate.Server
     /// <summary>
     /// Root PlugIn class
     /// </summary>
-    [PlugInDesc("Simplic Task", "1.0.221.1108", "9b72f404-799b-4d5a-9cb9-12fda65c42a7")]
+    [PlugInDesc("Simplic.Server Contact", "1.0.0.0", "0a5e3ee8-18f5-49fa-9930-0d7b0e221eab")]
     public class Init
     {
         public static void Initialize()

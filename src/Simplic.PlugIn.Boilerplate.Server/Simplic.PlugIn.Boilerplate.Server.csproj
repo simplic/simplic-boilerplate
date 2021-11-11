@@ -94,5 +94,6 @@
       <Name>Simplic.Boilerplate</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
