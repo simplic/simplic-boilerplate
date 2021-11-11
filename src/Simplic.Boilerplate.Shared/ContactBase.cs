@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Simplic.Boilerplate.Shared
+﻿namespace Simplic.Boilerplate.Shared
 {
     public class ContactBase
     {
+        string Name { get; set; }
     }
 }

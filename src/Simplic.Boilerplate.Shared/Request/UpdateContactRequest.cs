@@ -6,6 +6,6 @@ namespace Simplic.Boilerplate.Shared
 {
     public class UpdateContactRequest : ContactBase
     {
-
+        public Guid Guid { get; set; }
     }
 }

@@ -12,6 +12,6 @@ namespace Simplic.Boilerplate.Client
 
         Task<ContactModel> UpdateAsync(UpdateContactRequest model);
 
-        Task<DeleteContactResponse> DeleteAsync(Guid id)
+        Task<DeleteContactResponse> DeleteAsync(Guid id);
     }
 }

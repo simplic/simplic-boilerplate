@@ -6,5 +6,6 @@ namespace Simplic.Boilerplate.Shared
 {
     public class ContactModel : ContactBase
     {
+        public Guid Guid { get; set; }
     }
 }
