@@ -76,5 +76,23 @@
       <Version>5.11.7</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Simplic.Boilerplate.Data.DB\Simplic.Boilerplate.Data.DB.csproj">
+      <Project>{0b3a3cc7-9030-4792-989d-e0eb94eca661}</Project>
+      <Name>Simplic.Boilerplate.Data.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simplic.Boilerplate.Data.MongoDB\Simplic.Boilerplate.Data.MongoDB.csproj">
+      <Project>{13210482-3aa2-4a50-bc0e-06b6a9b7dd39}</Project>
+      <Name>Simplic.Boilerplate.Data.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simplic.Boilerplate.Service\Simplic.Boilerplate.Service.csproj">
+      <Project>{22b33f01-73fa-46da-a5c3-75058b015a31}</Project>
+      <Name>Simplic.Boilerplate.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Simplic.Boilerplate\Simplic.Boilerplate.csproj">
+      <Project>{b5e3b199-808b-418b-b8b5-ded1cee140d4}</Project>
+      <Name>Simplic.Boilerplate</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
