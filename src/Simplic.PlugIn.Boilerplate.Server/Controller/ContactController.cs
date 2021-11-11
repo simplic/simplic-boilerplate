@@ -41,9 +41,21 @@ namespace Simplic.PlugIn.Boilerplate.Server
 
         [HttpDelete]
         [SwaggerResponse(System.Net.HttpStatusCode.OK, "Deletes an existing contact", typeof(DeleteContactResponse))]
+        [SwaggerResponse(System.Net.HttpStatusCode.InternalServerError, "If deleting fails due to some technical reasons", typeof(Exception))]
         public async Task<IHttpActionResult> Delete(Guid id)
         {
-            return Ok();
+            try
+            {
+                // Check whether deleting is allowed
+                await contactService.DeleteAsync(id);
+            }
+            catch (Exception ex)
+            {
+                // Information hiding, what is good to return and what is bad?
+                return InternalServerError(ex);
+            }
+
+            return Ok(new DeleteContactResponse { Guid = id, Success = true });
         }
     }
 }
