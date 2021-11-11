@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNet.SignalR;
 
 namespace Simplic.PlugIn.Boilerplate.Server
 {
-    public class ContactHub
+    [Framework.WebAPI.SignalRJWTAuthorize]
+    public class ContactHub : Hub<IContactHubClient>, IContactHub
     {
+        
     }
 }

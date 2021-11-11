@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Simplic.Framework.WebAPI.Core;
 
 namespace Simplic.PlugIn.Boilerplate.Server
 {
-    public class ContactController
+    [Framework.WebAPI.JWTAuthorize]
+    public class ContactController : ExtendedApiController
     {
+        
     }
 }
