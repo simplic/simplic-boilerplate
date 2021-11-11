@@ -5,8 +5,53 @@
   "commands": [
     {
       "type": "copy",
-      "target": "simplic-repository\\public\\HtmlSource\\LocationSelector.html",
-      "destination": "/public/UI/HtmlSource/LocationSelector.html"
+      "target": "src\\Simplic.Boilerplate.UI\\bin\\Debug\\Simplic.Boilerplate.UI.dll",
+      "destination": "/bin/Simplic.Boilerplate.UI.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate.Client\\bin\\Debug\\Simplic.Boilerplate.Client.dll",
+      "destination": "/bin/Simplic.Boilerplate.Client.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.PlugIn.Boilerplate.Client\\bin\\Debug\\Simplic.PlugIn.Boilerplate.Client.dll",
+      "destination": "/bin/Simplic.PlugIn.Boilerplate.Client.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.PlugIn.Boilerplate.Server\\bin\\Debug\\Simplic.PlugIn.Boilerplate.Server.dll",
+      "destination": "/bin/Simplic.PlugIn.Boilerplate.Server.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate\\bin\\Debug\\Simplic.Boilerplate.dll",
+      "destination": "/bin/Simplic.Boilerplate.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate.Data.DB\\bin\\Debug\\Simplic.Boilerplate.Data.DB.dll",
+      "destination": "/bin/Simplic.Boilerplate.Data.DB.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate.Data.MongoDB\\bin\\Debug\\Simplic.Boilerplate.Data.MongoDB.dll",
+      "destination": "/bin/Simplic.Boilerplate.Data.MongoDB.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate.RelationalMapper\\bin\\Debug\\Simplic.Boilerplate.RelationalMapper.dll",
+      "destination": "/binSimplic.Boilerplate.RelationalMapper.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate.SchemaRegistry\\bin\\Debug\\Simplic.Boilerplate.SchemaRegistry.dll",
+      "destination": "/bin/Simplic.Boilerplate.SchemaRegistry.dll"
+    },
+    {
+      "type": "copy",
+      "target": "src\\Simplic.Boilerplate.Service\\bin\\Debug\\Simplic.Boilerplate.Service.dll",
+      "destination": "/bin/Simplic.Boilerplate.Service.dll"
     }
   ]
 }
