@@ -37,6 +37,11 @@ namespace Simplic.Boilerplate.Service
             return await contactRepository.CommitAsync();
         }
 
+        public async Task<Contact> GetAsync(Guid id)
+        {
+            return null;
+        }
+
         public async Task<int> UpdateAsync(Contact contact)
         {
             await contactEventService.SendUpdatedEventAsync(contact);
