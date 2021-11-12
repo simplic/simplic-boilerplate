@@ -44,5 +44,25 @@
     <Compile Include="Init.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator">
+      <Version>2.0.5</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Framework">
+      <Version>8.0.421.1101</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.WebApi.Client">
+      <Version>1.0.421.327</Version>
+    </PackageReference>
+    <PackageReference Include="Unity.Abstractions">
+      <Version>5.11.7</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Simplic.Boilerplate.Client\Simplic.Boilerplate.Client.csproj">
+      <Project>{48ea2864-5a47-4795-b3fc-480308bcdc3d}</Project>
+      <Name>Simplic.Boilerplate.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Simplic.Boilerplate.Service
 {
@@ -27,6 +28,18 @@ namespace Simplic.Boilerplate.Service
             await contactEventService.SendDeletedEventAsync(contact);
             await contactRepository.DeleteAsync(contact.Id);
             return await contactRepository.CommitAsync();
+        }
+
+        public async Task<int> DeleteAsync(Guid id)
+        {
+            // await contactEventService.SendDeletedEventAsync(contact);
+            await contactRepository.DeleteAsync(id);
+            return await contactRepository.CommitAsync();
+        }
+
+        public async Task<Contact> GetAsync(Guid id)
+        {
+            return null;
         }
 
         public async Task<int> UpdateAsync(Contact contact)
