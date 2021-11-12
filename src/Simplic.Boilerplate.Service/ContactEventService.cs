@@ -31,13 +31,7 @@ namespace Simplic.Boilerplate.Service
         {
             return new
             {
-                Contact = new
-                {
-                    contact.Id,
-                    contact.IsDeleted,
-                    contact.Name,
-                    contact.Addresses
-                }
+                Contact = contact
             };
         }
     }
