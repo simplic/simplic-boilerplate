@@ -6,6 +6,9 @@ using System;
 using Unity;
 using Unity.Lifetime;
 using AutoMapper;
+using Simplic.Boilerplate;
+using Simplic.Boilerplate.Service;
+using Simplic.Boilerplate.Data.MongoDB;
 
 namespace Simplic.PlugIn.Boilerplate.Server
 {
@@ -32,6 +35,10 @@ namespace Simplic.PlugIn.Boilerplate.Server
             {
                 return GlobalHost.ConnectionManager.GetHubContext<ContactHub, IContactHubClient>();
             }, new ContainerControlledLifetimeManager());
+
+            container.RegisterType<IContactService, ContactService>();
+            container.RegisterType<IContactEventService, ContactEventService>();
+            container.RegisterType<IContactRepository, ContactRepository>();
         }
     }
 

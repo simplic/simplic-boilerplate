@@ -7,46 +7,47 @@ namespace Simplic.Boilerplate.Service
     {
         private readonly IContactRepository contactRepository;
         private readonly IContactEventService contactEventService;
-        private readonly FluentContactTransactionBuilder fluentContactTransactionBuilder;
 
         public ContactService(IContactEventService contactEventService, IContactRepository contactRepository)
         {
             this.contactEventService = contactEventService;
             this.contactRepository = contactRepository;
-            fluentContactTransactionBuilder = new FluentContactTransactionBuilder(contactRepository);
         }
 
-        public async Task<int> CreateAsync(Contact contact)
+
+        public async Task CreateAsync(Contact contact)
         {
             await contactEventService.SendCreatedEventAsync(contact);
-
-            return await fluentContactTransactionBuilder.AddCreate(contact).CommitAsync();
+            await contactRepository.CreateAsync(contact);
+            await contactRepository.CommitAsync();
         }
 
-        public async Task<int> DeleteAsync(Contact contact)
+        public async Task DeleteAsync(Contact contact)
         {
             await contactEventService.SendDeletedEventAsync(contact);
             await contactRepository.DeleteAsync(contact.Id);
-            return await contactRepository.CommitAsync();
+            await contactRepository.CommitAsync();
         }
 
-        public async Task<int> DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            // await contactEventService.SendDeletedEventAsync(contact);
+            var contact = await GetAsync(id);
+
+            await contactEventService.SendDeletedEventAsync(contact);
             await contactRepository.DeleteAsync(id);
-            return await contactRepository.CommitAsync();
+            await contactRepository.CommitAsync();
         }
 
         public async Task<Contact> GetAsync(Guid id)
         {
-            return null;
+            return await contactRepository.GetAsync(id);
         }
 
-        public async Task<int> UpdateAsync(Contact contact)
+        public async Task UpdateAsync(Contact contact)
         {
             await contactEventService.SendUpdatedEventAsync(contact);
             await  contactRepository.UpdateAsync(contact);
-            return await contactRepository.CommitAsync();
+            await contactRepository.CommitAsync();
         }
     }
 }
