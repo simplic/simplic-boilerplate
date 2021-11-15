@@ -24,7 +24,7 @@ namespace Simplic.PlugIn.Boilerplate.Server
             var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
 
             // Register automapper
-            container.RegisterInstance<IMapper>("BoilerplateMapper", new MapperConfiguration(cfg =>
+            container.RegisterInstance("BoilerplateMapper", new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new ContactMapperProfile());
             }).CreateMapper());

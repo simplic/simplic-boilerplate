@@ -45,9 +45,13 @@
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\PhoneNumber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IContactBaseRepository.cs" />
     <Compile Include="Repository\IContactRepository.cs" />
+    <Compile Include="Repository\IContactTransactionRepository.cs" />
+    <Compile Include="Service\IContactBaseService.cs" />
     <Compile Include="Service\IContactEventService.cs" />
     <Compile Include="Service\IContactService.cs" />
+    <Compile Include="Service\IContactTransactionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Simplic.Data">

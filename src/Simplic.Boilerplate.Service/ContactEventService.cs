@@ -1,4 +1,5 @@
 ﻿using Simplic.MessageBroker;
+using System;
 using System.Threading.Tasks;
 
 namespace Simplic.Boilerplate.Service
@@ -14,17 +15,22 @@ namespace Simplic.Boilerplate.Service
 
         public async Task SendCreatedEventAsync(Contact contact)
         {
-            await Task.Run(() => messageBus.Publish<SchemaRegistry.ContactCreatedEvent>(GetEventValues(contact)));
+            messageBus.Publish<SchemaRegistry.ContactCreatedEvent>(GetEventValues(contact));
         }
 
         public async Task SendDeletedEventAsync(Contact contact)
         {
-            await Task.Run(() => messageBus.Publish<SchemaRegistry.ContactDeletedEvent>(GetEventValues(contact)));
+            messageBus.Publish<SchemaRegistry.ContactDeletedEvent>(GetEventValues(contact));
+        }
+
+        public async Task SendDeletedEventAsync(Guid contactId)
+        {
+            messageBus.Publish<SchemaRegistry.ContactDeletedEvent>(new { ContactId = contactId });
         }
 
         public async Task SendUpdatedEventAsync(Contact contact)
         {
-            await Task.Run(() => messageBus.Publish<SchemaRegistry.ContactDeletedEvent>(GetEventValues(contact)));
+            messageBus.Publish<SchemaRegistry.ContactDeletedEvent>(GetEventValues(contact));
         }
 
         object GetEventValues(Contact contact)

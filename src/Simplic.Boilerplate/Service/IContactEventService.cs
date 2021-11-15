@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Simplic.Boilerplate
 {
@@ -6,6 +7,6 @@ namespace Simplic.Boilerplate
     {
         Task SendCreatedEventAsync(Contact contact);
         Task SendUpdatedEventAsync(Contact contact);
-        Task SendDeletedEventAsync(Contact contact);
+        Task SendDeletedEventAsync(Guid contactId);
     }
 }

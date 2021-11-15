@@ -2,6 +2,6 @@
 {
     public class ContactBase
     {
-        string Name { get; set; }
+        public string Name { get; set; }
     }
 }

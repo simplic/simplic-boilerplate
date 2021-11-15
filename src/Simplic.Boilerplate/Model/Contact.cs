@@ -8,7 +8,7 @@ namespace Simplic.Boilerplate
     {
         public string Name { get; set; }
         public IList<Address> Addresses { get; set; } = new List<Address>();
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public bool IsDeleted { get; set; }
     }
 }
