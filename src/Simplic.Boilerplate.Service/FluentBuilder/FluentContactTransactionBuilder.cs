@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Simplic.Boilerplate.Service
 {
-    public class FluentContactTransactionBuilder : ICanAddOrCommitTransaction
+    public class FluentContactTransactionBuilder
     {
         private readonly IContactRepository contactRepository;
         private readonly IList<Action> actions = new List<Action>();

@@ -12,13 +12,23 @@ using Simplic.Boilerplate.Data.MongoDB;
 
 namespace Simplic.PlugIn.Boilerplate.Server
 {
+    /// <summary>
+    /// Entry point for the simplic framework.
+    /// </summary>
     public class InitFramework : IFrameworkEntryPoint
     {
+        /// <summary>
+        /// Returns the depending entry points.
+        /// </summary>
+        /// <returns>Array of the types.</returns>
         public Type[] DependingEntryPoints()
         {
             return null;
         }
 
+        /// <summary>
+        /// Initializes the plugin inside the framework.
+        /// </summary>
         public void Initilize()
         {
             var container = ServiceLocator.Current.GetInstance<IUnityContainer>();
