@@ -43,8 +43,7 @@
   <ItemGroup>
     <Compile Include="ContactEventService.cs" />
     <Compile Include="ContactService.cs" />
-    <Compile Include="FluentBuilder\FluentContactTransactionBuilder.cs" />
-    <Compile Include="FluentBuilder\ICanAddOrCommitTransaction.cs" />
+    <Compile Include="FluentContactTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

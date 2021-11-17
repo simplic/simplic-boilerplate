@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System;
 using Simplic.Data;
 
 namespace Simplic.Boilerplate
@@ -14,6 +13,12 @@ namespace Simplic.Boilerplate
         /// </summary>
         /// <returns>Task of transaction.</returns>
         Task<ITransaction> CreateTransactionAsync();
+
+        /// <summary>
+        /// Asynchronously creates a new fluent transaction.
+        /// </summary>
+        /// <returns>Task of transaction.</returns>
+        IFluentTransaction CreateFluentTransaction();
 
         /// <summary>
         /// Asynchronously commits a transaction.

@@ -18,7 +18,7 @@ namespace Simplic.Boilerplate.Shared
         public bool Success { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the message.
         /// </summary>
         public string Message { get; set; }
     }

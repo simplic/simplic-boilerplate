@@ -119,5 +119,14 @@ namespace Simplic.Boilerplate.Service
             transactionEventActions.Add(async () => await contactEventService.SendUpdatedEventAsync(contact));
             await contactRepository.UpdateAsync(contact, transaction);
         }
+
+        /// <inheritdoc/>
+        public IFluentTransaction CreateFluentTransaction()
+        {
+            var task = transactionService.CreateAsync();
+            task.RunSynchronously();
+            var transaction = new FluentContactTransaction(this, task.Result);
+            return transaction;
+        }
     }
 }
