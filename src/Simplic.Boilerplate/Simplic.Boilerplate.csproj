@@ -49,14 +49,13 @@
     <Compile Include="Repository\IContactBaseRepository.cs" />
     <Compile Include="Repository\IContactRepository.cs" />
     <Compile Include="Repository\IContactTransactionRepository.cs" />
-    <Compile Include="Service\IContactBaseService.cs" />
     <Compile Include="Service\IContactEventService.cs" />
     <Compile Include="Service\IContactService.cs" />
     <Compile Include="Service\IContactTransactionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Simplic.Data">
-      <Version>1.7.421.1017</Version>
+      <Version>1.7.321.1118</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

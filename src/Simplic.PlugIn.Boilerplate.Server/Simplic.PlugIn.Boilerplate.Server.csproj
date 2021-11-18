@@ -64,6 +64,9 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Core">
       <Version>5.2.7</Version>
     </PackageReference>
+    <PackageReference Include="Simplic.Data.MongoDB">
+      <Version>1.1.321.1118</Version>
+    </PackageReference>
     <PackageReference Include="Simplic.Framework">
       <Version>8.0.421.1101</Version>
     </PackageReference>
