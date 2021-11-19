@@ -57,6 +57,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Simplic.Data">
+      <Version>1.7.621.1118</Version>
+    </PackageReference>
     <PackageReference Include="Simplic.MessageBroker">
       <Version>1.5.120.1201</Version>
     </PackageReference>

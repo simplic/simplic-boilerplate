@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simplic.Data;
+using System;
 using System.Threading.Tasks;
 
 namespace Simplic.Boilerplate
@@ -6,7 +7,7 @@ namespace Simplic.Boilerplate
     /// <summary>
     /// Service for managing contact directly  and contact via transactions.
     /// </summary>
-    public interface IContactService : IContactTransactionService
+    public interface IContactService : ITransactionRepository<Contact, Guid>
     {
         /// <summary>
         /// Asynchronously deletes a contact object and sends a deleted event.
