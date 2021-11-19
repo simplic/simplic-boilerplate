@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="ContactEventService.cs" />
     <Compile Include="ContactService.cs" />
-    <Compile Include="FluentContactTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Simplic.Data">
-      <Version>1.7.621.1118</Version>
+      <Version>1.7.721.1118</Version>
     </PackageReference>
     <PackageReference Include="Simplic.MessageBroker">
       <Version>1.5.120.1201</Version>
