@@ -67,31 +67,6 @@ namespace Simplic.Boilerplate.Service
             await contactRepository.CommitAsync();
         }
 
-
-        /// <inheritdoc/>
-        public async Task<ITransaction> CreateTransactionAsync()
-        {
-            return await transactionService.CreateAsync();
-        }
-
-        /// <inheritdoc/>
-        public async Task AbortAsync(ITransaction transaction)
-        {
-            await transactionService.AbortAsync(transaction);
-            transactionEventActions.Clear();
-        }
-
-        /// <inheritdoc/>
-        public async Task CommitAsync(ITransaction transaction)
-        {
-            await transactionService.CommitAsync(transaction);
-            foreach (var action in transactionEventActions)
-            {
-                action.Invoke();
-            }
-            transactionEventActions.Clear();
-        }
-
         /// <inheritdoc/>
         public async Task CreateAsync(Contact contact, ITransaction transaction)
         {
@@ -118,15 +93,6 @@ namespace Simplic.Boilerplate.Service
         {
             transactionEventActions.Add(async () => await contactEventService.SendUpdatedEventAsync(contact));
             await contactRepository.UpdateAsync(contact, transaction);
-        }
-
-        /// <inheritdoc/>
-        public IFluentTransaction CreateFluentTransaction()
-        {
-            var task = transactionService.CreateAsync();
-            task.RunSynchronously();
-            var transaction = new FluentContactTransaction(this, task.Result);
-            return transaction;
         }
     }
 }
