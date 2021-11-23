@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Unity;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Simplic.PlugIn.Boilerplate.Server
 {
@@ -83,7 +84,19 @@ namespace Simplic.PlugIn.Boilerplate.Server
             }
         }
 
-        public async Task<DataSession> JoinAsync(IList<Guid> ids)
+        public async Task<IList<DataSession>> JoinMultipleAsync(IList<Guid> ids)
+        {
+            var sessions = new List<DataSession>();
+
+            foreach (var id in ids)
+            {
+                sessions.Add(await JoinAsync(id));
+            }
+
+            return sessions;
+        }
+
+        public async Task<DataSession> JoinAsync(Guid id)
         {
             var session = new DataSession();
 
@@ -92,67 +105,33 @@ namespace Simplic.PlugIn.Boilerplate.Server
             return session;
         }
 
-        public async Task<DataSession> LeaveAsync(Guid id, bool commit)
+        public async Task LeaveMultipleAsync(IList<(Guid, bool)> sessions)
         {
-            var session = new DataSession();
+            foreach (var session in sessions)
+            {
+                await LeaveAsync(session.Item1, session.Item2);
+            }
+        }
 
+        public async Task LeaveAsync(Guid id, bool commit)
+        {
             if (commit)
             {
-                // Save changes to the database
-                // Send information to other participants
+                await CommitChangesAsync(id);
             }
             else
             {
-                // Send information about abortion to all participants
+                await AbortChangesAsync(id);
             }
 
             await Groups.Remove(Context.ConnectionId, $"Session_{id}");
-
-            return session;
-        }
-
-        public class SessionDataTree
-        { 
-            public Guid Id { get; set; }
-        
-            public JObject Trunk { get; set; }
-        }
-
-        public class Branch : JProperty // 
-        {
-            public Branch(JProperty other) : base(other)
-            {
-            }
-
-            public Branch(string name, params object[] content) : base(name, content)
-            {
-            }
-
-            public Branch(string name, object content) : base(name, content)
-            {
-            }
-        }
-
-        public class Leaf : JValue // CHangeset
-        {
-            public Leaf(JProperty other) : base(other)
-            {
-            }
-
-            public Leaf(string name, params object[] content) : base(name, content)
-            {
-            }
-
-            public Leaf(string name, object content) : base(name, content)
-            {
-            }
         }
 
         public async Task ChangeFieldAsync(Guid sessionId, string path, JProperty property)
         {
-            Session currentSession = null;
+            //Session currentSession = null;
 
-             currentSession.Object
+            //currentSession.Object
         }
 
         public async Task AddToCollectionAsync()
@@ -165,9 +144,100 @@ namespace Simplic.PlugIn.Boilerplate.Server
 
         }
 
-        public async Task CommitChangesAsync()
+        public async Task CommitChangesAsync(Guid id)
         {
+            // Save changes to the database
+            // Send information to other participants
+        }
 
+        public async Task AbortChangesAsync(Guid id)
+        {
+            // Send information about abortion to all participants
+        }
+    }
+
+    public class SessionDataTree
+    {
+        public Guid Id { get; set; }
+
+        public JObject Trunk { get; set; }
+    }
+
+    public class Branch : JProperty // 
+    {
+        public Branch(JProperty other) : base(other)
+        {
+        }
+
+        public Branch(string name, params object[] content) : base(name, content)
+        {
+        }
+
+        public Branch(string name, object content) : base(name, content)
+        {
+        }
+    }
+
+    public class Leaf : JValue // CHangeset
+    {
+        public Leaf(JValue other) : base(other)
+        {
+        }
+
+        public Leaf(long value) : base(value)
+        {
+        }
+
+        public Leaf(decimal value) : base(value)
+        {
+        }
+
+        public Leaf(char value) : base(value)
+        {
+        }
+
+        public Leaf(ulong value) : base(value)
+        {
+        }
+
+        public Leaf(double value) : base(value)
+        {
+        }
+
+        public Leaf(float value) : base(value)
+        {
+        }
+
+        public Leaf(DateTime value) : base(value)
+        {
+        }
+
+        public Leaf(DateTimeOffset value) : base(value)
+        {
+        }
+
+        public Leaf(bool value) : base(value)
+        {
+        }
+
+        public Leaf(string value) : base(value)
+        {
+        }
+
+        public Leaf(Guid value) : base(value)
+        {
+        }
+
+        public Leaf(Uri value) : base(value)
+        {
+        }
+
+        public Leaf(TimeSpan value) : base(value)
+        {
+        }
+
+        public Leaf(object value) : base(value)
+        {
         }
     }
 }
