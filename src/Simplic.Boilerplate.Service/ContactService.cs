@@ -12,21 +12,16 @@ namespace Simplic.Boilerplate.Service
     {
         private readonly IContactRepository contactRepository;
         private readonly IContactEventService contactEventService;
-        private readonly ITransactionService transactionService;
-
-        private readonly IList<Action> transactionEventActions = new List<Action>();
 
         /// <summary>
         /// Initializes a new instance of the conatact service.
         /// </summary>
         /// <param name="contactEventService">Service for sending the events.</param>
         /// <param name="contactRepository">Repository for managing the contact.</param>
-        /// <param name="transactionService">Service that manages transactions.</param>
-        public ContactService(IContactEventService contactEventService, IContactRepository contactRepository, ITransactionService transactionService)
+        public ContactService(IContactEventService contactEventService, IContactRepository contactRepository)
         {
             this.contactEventService = contactEventService;
             this.contactRepository = contactRepository;
-            this.transactionService = transactionService;
         }
 
         /// <inheritdoc/>
@@ -54,12 +49,6 @@ namespace Simplic.Boilerplate.Service
         }
 
         /// <inheritdoc/>
-        public async Task<Contact> GetAsync(Guid id)
-        {
-            return await contactRepository.GetAsync(id);
-        }
-
-        /// <inheritdoc/>
         public async Task UpdateAsync(Contact contact)
         {
             await contactEventService.SendUpdatedEventAsync(contact);
@@ -68,31 +57,61 @@ namespace Simplic.Boilerplate.Service
         }
 
         /// <inheritdoc/>
+        public async Task<Contact> GetAsync(Guid id)
+        {
+            return await contactRepository.GetAsync(id);
+        }
+
+        /// <inheritdoc/>
         public async Task CreateAsync(Contact contact, ITransaction transaction)
         {
-            transactionEventActions.Add(async () => await contactEventService.SendCreatedEventAsync(contact));
+            await contactEventService.SendCreatedEventAsync(contact);
             await contactRepository.CreateAsync(contact, transaction);
         }
 
         /// <inheritdoc/>
         public async Task DeleteAsync(Contact contact, ITransaction transaction)
         {
-            transactionEventActions.Add(async () => await contactEventService.SendDeletedEventAsync(contact.Id));
+            await contactEventService.SendDeletedEventAsync(contact.Id);
             await contactRepository.DeleteAsync(contact.Id, transaction);
         }
 
         /// <inheritdoc/>
         public async Task DeleteAsync(Guid id, ITransaction transaction)
         {
-            transactionEventActions.Add(async () => await contactEventService.SendDeletedEventAsync(id));
+            await contactEventService.SendDeletedEventAsync(id);
             await contactRepository.DeleteAsync(id, transaction);
         }
 
         /// <inheritdoc/>
         public async Task UpdateAsync(Contact contact, ITransaction transaction)
         {
-            transactionEventActions.Add(async () => await contactEventService.SendUpdatedEventAsync(contact));
+            await contactEventService.SendUpdatedEventAsync(contact);
             await contactRepository.UpdateAsync(contact, transaction);
         }
+
+        /// <inheritdoc/>
+        public async Task UpsertAsync(ContactFilter filter, Contact entity) 
+            => await contactRepository.UpsertAsync(filter, entity);
+
+        /// <inheritdoc/>
+        public async Task<int> CommitAsync() 
+            => await contactRepository.CommitAsync();
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Contact>> GetAllAsync() 
+            => await contactRepository.GetAllAsync();
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Contact>> GetByFilterAsync(ContactFilter filter) 
+            => await contactRepository.GetByFilterAsync(filter);
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Contact>> FindAsync(ContactFilter predicate, int? skip, int? limit, string sortField = "", bool isAscending = true)
+            => await contactRepository.FindAsync(predicate, skip, limit, sortField, isAscending);
+
+        /// <inheritdoc/>
+        public void Dispose() 
+            => contactRepository.Dispose();
     }
 }

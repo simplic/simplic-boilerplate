@@ -1,7 +1,7 @@
 ﻿using Simplic.Data.NoSql;
 using System;
 
-namespace Simplic.Boilerplate.Data.MongoDB
+namespace Simplic.Boilerplate
 {
     /// <summary>
     /// Contact filter for mongo db.
