@@ -44,6 +44,7 @@
     <Compile Include="Controller\ContactController.cs" />
     <Compile Include="Flow\OnContactCreatedEventNode.cs" />
     <Compile Include="Hub\ContactHub.cs" />
+    <Compile Include="Hub\CustomJsonConverter.cs" />
     <Compile Include="Hub\DataSession.cs" />
     <Compile Include="Hub\IContactHub.cs" />
     <Compile Include="Hub\IContactHubClient.cs" />
