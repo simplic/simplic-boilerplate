@@ -72,7 +72,25 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
         }
 
         [Fact]
-        public void ShouldSerialize_NestedObjectInLists()
+        public void ShouldSerialize_SimpleList()
+        {
+            var contact = new
+            {
+                Tags = new[]
+                {
+                    "TestTag",
+                    "DemoTag",
+                    "AnotherTag"
+                },
+            };
+
+            var result = JsonConvert.SerializeObject(contact, Formatting.Indented, jsonConverter);
+
+            result.Should().Be("{\r\n  \"Tags\": {\r\n    \"_new\": [],\r\n    \"_removed\": [],\r\n    \"_items\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"value\": \"TestTag\"\r\n      },\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"value\": \"DemoTag\"\r\n      },\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"value\": \"AnotherTag\"\r\n      }\r\n    ]\r\n  }\r\n}");
+        }
+
+        [Fact]
+        public void ShouldSerialize_NestedObjectInList()
         {
             var contact = new
             {
