@@ -64,6 +64,11 @@ namespace Simplic.PlugIn.Boilerplate.Server
                     ConvertProperties(item);
                 }
             }
+            else if (rootToken is JValue)
+            {
+                var jValue = rootToken as JValue;
+                ConvertValue(jValue);
+            }
         }
 
         /// <summary>
@@ -75,27 +80,13 @@ namespace Simplic.PlugIn.Boilerplate.Server
             var jArray = token as JArray;
             for (int i = 0; i < jArray.Count; i++)
             {
-                if (jArray[i] is JProperty)
-                {
-                    var jProperty = jArray[i] as JProperty;
-                    ConvertProperty(jProperty);
-                }
-                else if (jArray[i] is JValue)
-                {
-                    var jValue = jArray[i] as JValue;
-                    ConvertValue(jValue);
-                }
-                else if (jArray[i] is JObject)
-                {
-                    var jObject = jArray[i] as JObject;
-                    ConvertObject(jObject);
-                }
+                ConvertProperties(jArray[i]);
             }
 
             var ob = new JObject(
                 new JProperty("_new", new JArray()),
                 new JProperty("_removed", new JArray()),
-                new JProperty("_items", new JArray(token.Values())));
+                new JProperty("_items", jArray));
 
             token.Replace(ob);
         }
