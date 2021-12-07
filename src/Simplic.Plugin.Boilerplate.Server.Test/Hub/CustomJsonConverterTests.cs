@@ -1,21 +1,21 @@
 ﻿using FluentAssertions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Simplic.PlugIn.Boilerplate.Server;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Simplic.Plugin.Boilerplate.Server.Test
 {
     public class CustomJsonConverterTests
     {
-        private readonly string user;
-        private readonly string baseUser;
+        private static readonly string user = "Test";
+        private static readonly string baseUser = "SuperUser";
         private CustomJsonConverter jsonConverter;
 
         public CustomJsonConverterTests()
         {
-            baseUser = "SuperUser";
-            user = "Test";
             jsonConverter = new CustomJsonConverter(baseUser);
         }
 
@@ -24,7 +24,19 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
             public string Name { get; set; }
         }
 
-        private readonly string simpleObjectJson = "{\r\n  \"Name\": [\r\n    {\r\n      \"id\": \"0\",\r\n      \"user\": \"SuperUser\",\r\n      \"state\": \"0\",\r\n      \"value\": \"Peter\"\r\n    }\r\n  ]\r\n}";
+        private readonly JObject simpleJsonObject =
+            new JObject(
+                new JProperty("Name",
+                    new JArray(
+                        new JObject(
+                            new JProperty("id", "0"),
+                            new JProperty("user", baseUser),
+                            new JProperty("state", "0"),
+                            new JProperty("value", "Peter")
+                            )
+                        )
+                    )
+                );
 
         [Fact]
         public void Serialize_SimpleObject()
@@ -36,13 +48,13 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
 
             var result = JsonConvert.SerializeObject(contact, Formatting.Indented, jsonConverter);
 
-            result.Should().Be(simpleObjectJson);
+            result.Should().Be(simpleJsonObject.ToString());
         }
 
         [Fact]
         public void Deserialize_SimpleObject_WithoutChanges()
         {
-            var result = JsonConvertWrapper.DeserializeObject<Person>(simpleObjectJson, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Person>(simpleJsonObject.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.Name.Should().Be("Peter");
@@ -51,9 +63,25 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
         [Fact]
         public void Deserialize_SimpleObject_WithChanges()
         {
-            var json = "{\r\n  \"Name\": [\r\n    {\r\n      \"id\": \"0\",\r\n      \"user\": \"SuperUser\",\r\n      \"state\": \"0\",\r\n      \"value\": \"Peter\"\r\n    }\r\n,    {\r\n      \"id\": \"1\",\r\n      \"user\": \"Test\",\r\n      \"state\": \"0\",\r\n      \"value\": \"Gunther\"\r\n    }\r\n  ]\r\n}";
-
-            var result = JsonConvertWrapper.DeserializeObject<Person>(json, user, baseUser);
+            var jsonObject = new JObject(
+                new JProperty("Name",
+                    new JArray(
+                        new JObject(
+                            new JProperty("id", "0"),
+                            new JProperty("user", baseUser),
+                            new JProperty("state", "0"),
+                            new JProperty("value", "Peter")
+                            ),
+                        new JObject(
+                            new JProperty("id", "1"),
+                            new JProperty("user", user),
+                            new JProperty("state", "0"),
+                            new JProperty("value", "Gunther")
+                            )
+                        )
+                    )
+                );
+            var result = JsonConvertWrapper.DeserializeObject<Person>(jsonObject.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.Name.Should().Be("Gunther");
@@ -70,7 +98,33 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
             public string Number { get; set; }
         }
 
-        private readonly string nestedObjectJson = "{\r\n  \"Phone\": {\r\n    \"Type\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"Home\"\r\n      }\r\n    ],\r\n    \"Number\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"123456789\"\r\n      }\r\n    ]\r\n  }\r\n}";
+        private readonly JObject nestedJsonObject =
+            new JObject(
+                new JProperty("Phone",
+                    new JObject(
+                        new JProperty("Type",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "Home")
+                                    )
+                                )
+                            ),
+                        new JProperty("Number",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "123456789")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
 
         [Fact]
         public void Serialize_NestedObject()
@@ -86,13 +140,13 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
 
             var result = JsonConvert.SerializeObject(contact, Formatting.Indented, jsonConverter);
 
-            result.Should().Be(nestedObjectJson);
+            result.Should().Be(nestedJsonObject.ToString());
         }
 
         [Fact]
         public void Deserialize_NestedObject_WithoutChanges()
         {
-            var result = JsonConvertWrapper.DeserializeObject<Contact>(nestedObjectJson, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Contact>(nestedJsonObject.ToString(), user, baseUser);
             result.Should().NotBeNull();
             result.Phone.Should().NotBeNull();
             result.Phone.Number.Should().Be("123456789");
@@ -102,9 +156,46 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
         [Fact]
         public void Deserialize_NestedObject_WithChanges()
         {
-            var json = "{\r\n  \"Phone\": {\r\n    \"Type\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"value\": \"Home\"\r\n      }\r\n, \r\n      {\r\n        \"id\": \"1\",\r\n        \"user\": \"Test\",\r\n        \"value\": \"Zuhause\"\r\n      }\r\n    ],\r\n    \"Number\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"value\": \"123456789\"\r\n      }\r\n, {\r\n        \"id\": \"1\",\r\n        \"user\": \"Test\",\r\n        \"value\": \"9999\"\r\n      }\r\n    ]\r\n  }\r\n}";
+            var json = new JObject(
+                new JProperty("Phone",
+                    new JObject(
+                        new JProperty("Type",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "Home")
+                                    ),
+                                new JObject(
+                                    new JProperty("id", "1"),
+                                    new JProperty("user", user),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "Zuhause")
+                                    )
+                                )
+                            ),
+                        new JProperty("Number",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "123456789")
+                                    ),
+                                new JObject(
+                                    new JProperty("id", "1"),
+                                    new JProperty("user", user),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "9999")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
 
-            var result = JsonConvertWrapper.DeserializeObject<Contact>(json, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Contact>(json.ToString(), user, baseUser);
             result.Should().NotBeNull();
             result.Phone.Should().NotBeNull();
             result.Phone.Number.Should().Be("9999");
@@ -128,7 +219,46 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
             public string Zip { get; set; }
         }
 
-        private readonly string doubleNestedObjectJson = "{\r\n  \"State\": {\r\n    \"Town\": {\r\n      \"Name\": [\r\n        {\r\n          \"id\": \"0\",\r\n          \"user\": \"SuperUser\",\r\n          \"state\": \"0\",\r\n          \"value\": \"Hildesheim\"\r\n        }\r\n      ],\r\n      \"Zip\": [\r\n        {\r\n          \"id\": \"0\",\r\n          \"user\": \"SuperUser\",\r\n          \"state\": \"0\",\r\n          \"value\": \"31134\"\r\n        }\r\n      ]\r\n    },\r\n    \"Name\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"Niedersachsen\"\r\n      }\r\n    ]\r\n  }\r\n}";
+        private readonly JObject doubleNestedJsonObject = new JObject(
+                new JProperty("State",
+                    new JObject(
+                        new JProperty("Town",
+                            new JObject(
+                                new JProperty("Name",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Hildesheim")
+                                            )
+                                        )
+                                    ),
+                                new JProperty("Zip",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "31134")
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                        new JProperty("Name",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "Niedersachsen")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
 
         [Fact]
         public void Serialize_DoubleNestedObject()
@@ -148,13 +278,13 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
 
             var result = JsonConvert.SerializeObject(adress, Formatting.Indented, jsonConverter);
 
-            result.Should().Be(doubleNestedObjectJson);
+            result.Should().Be(doubleNestedJsonObject.ToString());
         }
 
         [Fact]
         public void Deserialize_DoubleNestedObject_WithoutChanges()
         {
-            var result = JsonConvertWrapper.DeserializeObject<Adress>(doubleNestedObjectJson, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Adress>(doubleNestedJsonObject.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.State.Should().NotBeNull();
@@ -167,9 +297,66 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
         [Fact]
         public void Deserialize_DoubleNestedObject_WithChanges()
         {
-            var json = "{\r\n  \"State\": {\r\n    \"Town\": {\r\n      \"Name\": [\r\n        {\r\n          \"id\": \"0\",\r\n          \"user\": \"SuperUser\",\r\n          \"value\": \"Hildesheim\"\r\n        }\r\n, {\r\n          \"id\": \"1\",\r\n          \"user\": \"Test\",\r\n          \"value\": \"Hannover\"\r\n        }\r\n      ],\r\n      \"Zip\": [\r\n        {\r\n          \"id\": \"0\",\r\n          \"user\": \"SuperUser\",\r\n          \"value\": \"31134\"\r\n        }\r\n, {\r\n          \"id\": \"1\",\r\n          \"user\": \"Test\",\r\n          \"value\": \"30159\"\r\n        }\r\n       ]\r\n    },\r\n    \"Name\": [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"value\": \"Niedersachsen\"\r\n      }\r\n, {\r\n        \"id\": \"1\",\r\n        \"user\": \"Test\",\r\n        \"value\": \"Sachsen\"\r\n      }\r\n    ]\r\n  }\r\n}";
+            var json = new JObject(
+                new JProperty("State",
+                    new JObject(
+                        new JProperty("Town",
+                            new JObject(
+                                new JProperty("Name",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Hildesheim")
+                                            ),
+                                        new JObject(
+                                            new JProperty("id", "1"),
+                                            new JProperty("user", user),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Hannover")
+                                            )
+                                        )
+                                    ),
+                                new JProperty("Zip",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "31134")
+                                            ),
+                                        new JObject(
+                                            new JProperty("id", "1"),
+                                            new JProperty("user", user),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "30159")
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                        new JProperty("Name",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "Niedersachsen")
+                                    ),
+                                new JObject(
+                                    new JProperty("id", "1"),
+                                    new JProperty("user", user),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "Sachsen")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
 
-            var result = JsonConvertWrapper.DeserializeObject<Adress>(json, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Adress>(json.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.State.Should().NotBeNull();
@@ -184,7 +371,37 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
             public IEnumerable<string> Tags { get; set; }
         }
 
-        private readonly string simpleListJson = "{\r\n  \"Tags\": [\r\n    [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"TestTag\"\r\n      }\r\n    ],\r\n    [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"DemoTag\"\r\n      }\r\n    ],\r\n    [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"AnotherTag\"\r\n      }\r\n    ]\r\n  ]\r\n}";
+        private readonly JObject simpleListJsonObject =
+            new JObject(
+                new JProperty("Tags",
+                    new JArray(
+                        new JArray(
+                            new JObject(
+                                new JProperty("id", "0"),
+                                new JProperty("user", baseUser),
+                                new JProperty("state", "0"),
+                                new JProperty("value", "TestTag")
+                                )
+                            ),
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "DemoTag")
+                                    )
+                                ),
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "AnotherTag")
+                                    )
+                                )
+                        )
+                    )
+                );
 
         [Fact]
         public void Serialize_SimpleList()
@@ -201,13 +418,13 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
 
             var result = JsonConvert.SerializeObject(contact, Formatting.Indented, jsonConverter);
 
-            result.Should().Be(simpleListJson);
+            result.Should().Be(simpleListJsonObject.ToString());
         }
 
         [Fact]
         public void Deserialize_SimpleList_WithoutChanges()
         {
-            var result = JsonConvertWrapper.DeserializeObject<Folder>(simpleListJson, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Folder>(simpleListJsonObject.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.Tags.Should().NotBeNullOrEmpty();
@@ -220,18 +437,147 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
         [Fact]
         public void Deserialize_SimpleList_WithChanges()
         {
-            var simpleListJson = "{\r\n  \"Tags\": [\r\n    [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"TestTag\"\r\n      }\r\n, {\r\n        \"id\": \"1\",\r\n        \"user\": \"Test\",\r\n        \"state\": \"-1\",\r\n        \"value\": \"TestTag\"\r\n      }\r\n    ],\r\n    [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"DemoTag\"\r\n      }\r\n    ],\r\n    [\r\n      {\r\n        \"id\": \"0\",\r\n        \"user\": \"SuperUser\",\r\n        \"state\": \"0\",\r\n        \"value\": \"AnotherTag\"\r\n      }\r\n    ]\r\n  ]\r\n}";
-            var result = JsonConvertWrapper.DeserializeObject<Folder>(simpleListJson, user, baseUser);
+            var simpleListJsonObject = new JObject(
+                new JProperty("Tags",
+                    new JArray(
+                        new JArray(
+                            new JObject(
+                                new JProperty("id", "0"),
+                                new JProperty("user", baseUser),
+                                new JProperty("state", "0"),
+                                new JProperty("value", "TestTag")
+                                ),
+                            new JObject(
+                                new JProperty("id", "1"),
+                                new JProperty("user", user),
+                                new JProperty("state", "-1"),
+                                new JProperty("value", "TestTag")
+                                )
+                            ),
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "DemoTag")
+                                    )
+                                ),
+                            new JArray(
+                                new JObject(
+                                    new JProperty("id", "0"),
+                                    new JProperty("user", baseUser),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "AnotherTag")
+                                    ),
+                                new JObject(
+                                    new JProperty("id", "1"),
+                                    new JProperty("user", user),
+                                    new JProperty("state", "0"),
+                                    new JProperty("value", "JustAnotherTag")
+                                    )
+                                )
+                        )
+                    )
+                );
+
+            var result = JsonConvertWrapper.DeserializeObject<Folder>(simpleListJsonObject.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.Tags.Should().NotBeNullOrEmpty();
             result.Tags.Should().HaveCount(2);
             result.Tags.Should().Contain("DemoTag");
-            result.Tags.Should().Contain("AnotherTag");
+            result.Tags.Should().Contain("JustAnotherTag");
         }
 
-        private readonly string nestedObjectListJson = "{\r\n  \"Name\": [\r\n    {\r\n      \"id\": \"0\",\r\n      \"user\": \"SuperUser\",\r\n      \"state\": \"0\",\r\n      \"value\": \"Crystal Lake\"\r\n    }\r\n  ],\r\n  \"Songs\": [\r\n    {\r\n      \"Genre\": {\r\n        \"Name\": [\r\n          {\r\n            \"id\": \"0\",\r\n            \"user\": \"SuperUser\",\r\n            \"state\": \"0\",\r\n            \"value\": \"Metalcore\"\r\n          }\r\n        ],\r\n        \"RootGenre\": [\r\n          {\r\n            \"id\": \"0\",\r\n            \"user\": \"SuperUser\",\r\n            \"state\": \"0\",\r\n            \"value\": \"Metal\"\r\n          }\r\n        ]\r\n      },\r\n      \"Title\": [\r\n        {\r\n          \"id\": \"0\",\r\n          \"user\": \"SuperUser\",\r\n          \"state\": \"0\",\r\n          \"value\": \"Watch Me Burn\"\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"Genre\": {\r\n        \"Name\": [\r\n          {\r\n            \"id\": \"0\",\r\n            \"user\": \"SuperUser\",\r\n            \"state\": \"0\",\r\n            \"value\": \"Metalcore\"\r\n          }\r\n        ],\r\n        \"RootGenre\": [\r\n          {\r\n            \"id\": \"0\",\r\n            \"user\": \"SuperUser\",\r\n            \"state\": \"0\",\r\n            \"value\": \"Metal\"\r\n          }\r\n        ]\r\n      },\r\n      \"Title\": [\r\n        {\r\n          \"id\": \"0\",\r\n          \"user\": \"SuperUser\",\r\n          \"state\": \"0\",\r\n          \"value\": \"Apollo\"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}";
-        
+        private readonly JObject nestedObjectListJsonObject = new JObject(
+                new JProperty("Name",
+                    new JArray(
+                        new JObject(
+                            new JProperty("id", "0"),
+                            new JProperty("user", baseUser),
+                            new JProperty("state", "0"),
+                            new JProperty("value", "Crystal Lake")
+                            )
+                        )
+                    ),
+                    new JProperty("Songs",
+                        new JArray(
+                            new JObject(
+                                new JProperty("Genre",
+                                    new JObject(
+                                        new JProperty("Name",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metalcore")
+                                                    )
+                                                )
+                                            ),
+                                        new JProperty("RootGenre",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metal")
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ),
+                                new JProperty("Title",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Watch Me Burn")
+                                            )
+                                        )
+                                    )
+                                ),
+                            new JObject(                                
+                                new JProperty("Genre",
+                                    new JObject(
+                                        new JProperty("Name",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metalcore")
+                                                    )
+                                                )
+                                            ),
+                                        new JProperty("RootGenre",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metal")
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ),
+                                new JProperty("Title",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Apollo")
+                                            )
+                                        )
+                                    )
+                                )
+                            )                    
+                        )         
+            );
+
         class Artist
         {
             public string Name { get; set; }
@@ -258,7 +604,7 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
                 Name = "Metalcore",
                 RootGenre = "Metal"
             };
-            var contact = new Artist
+            var artist = new Artist
             {
                 Name = "Crystal Lake",
                 Songs = new Song[]
@@ -274,20 +620,167 @@ namespace Simplic.Plugin.Boilerplate.Server.Test
                 },
             };
 
-            var result = JsonConvert.SerializeObject(contact, Formatting.Indented, jsonConverter);
+            var result = JsonConvert.SerializeObject(artist, Formatting.Indented, jsonConverter);
 
-            result.Should().Be(nestedObjectListJson);
+            var n = nestedObjectListJsonObject.ToString();
+
+            result.Should().Be(nestedObjectListJsonObject.ToString());
         }
 
         [Fact]
         public void Deserialize_NestedObjectInList_WithoutChanges()
         {
-            var result = JsonConvertWrapper.DeserializeObject<Artist>(nestedObjectListJson, user, baseUser);
+            var result = JsonConvertWrapper.DeserializeObject<Artist>(nestedObjectListJsonObject.ToString(), user, baseUser);
 
             result.Should().NotBeNull();
             result.Name.Should().Be("Crystal Lake");
             result.Songs.Should().NotBeNullOrEmpty();
             result.Songs.Should().HaveCount(2);
+            result.Songs.Any(s => s.Title == "Watch Me Burn").Should().BeTrue();
+            result.Songs.Any(s => s.Title == "Apollo").Should().BeTrue();
+        }
+
+        [Fact]
+        public void Deserialize_NestedObjectInList_WithChanges()
+        {
+            var json = new JObject(
+                new JProperty("Name",
+                    new JArray(
+                        new JObject(
+                            new JProperty("id", "0"),
+                            new JProperty("user", baseUser),
+                            new JProperty("state", "0"),
+                            new JProperty("value", "Crystal Lake")
+                            ),
+                        new JObject(
+                            new JProperty("id", "1"),
+                            new JProperty("user", user),
+                            new JProperty("state", "0"),
+                            new JProperty("value", "Nora En Pure")
+                            )
+                        )
+                    ),
+                    new JProperty("Songs",
+                        new JArray(
+                            new JObject(
+                                new JProperty("Genre",
+                                    new JObject(
+                                        new JProperty("Name",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metalcore")
+                                                    ),
+                                                new JObject(
+                                                    new JProperty("id", "1"),
+                                                    new JProperty("user", user),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Electronic")
+                                                    )
+                                                )
+                                            ),
+                                        new JProperty("RootGenre",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metal")
+                                                    ),
+                                                new JObject(
+                                                    new JProperty("id", "1"),
+                                                    new JProperty("user", user),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "EDM")
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ),
+                                new JProperty("Title",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Watch Me Burn")
+                                            ),
+                                        new JObject(
+                                            new JProperty("id", "1"),
+                                            new JProperty("user", user),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Wetlands")
+                                            )
+                                        )
+                                    )
+                                ),
+                            new JObject(
+                                new JProperty("Genre",
+                                    new JObject(
+                                        new JProperty("Name",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metalcore")
+                                                    ),
+                                                new JObject(
+                                                    new JProperty("id", "1"),
+                                                    new JProperty("user", user),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Electronic")
+                                                    )
+                                                )
+                                            ),
+                                        new JProperty("RootGenre",
+                                            new JArray(
+                                                new JObject(
+                                                    new JProperty("id", "0"),
+                                                    new JProperty("user", baseUser),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "Metal")
+                                                    ),
+                                                new JObject(
+                                                    new JProperty("id", "1"),
+                                                    new JProperty("user", user),
+                                                    new JProperty("state", "0"),
+                                                    new JProperty("value", "EDM")
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ),
+                                new JProperty("Title",
+                                    new JArray(
+                                        new JObject(
+                                            new JProperty("id", "0"),
+                                            new JProperty("user", baseUser),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Apollo")
+                                            ),
+                                        new JObject(
+                                            new JProperty("id", "1"),
+                                            new JProperty("user", user),
+                                            new JProperty("state", "0"),
+                                            new JProperty("value", "Bartok")
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+            );
+            var result = JsonConvertWrapper.DeserializeObject<Artist>(json.ToString(), user, baseUser);
+
+            result.Should().NotBeNull();
+            result.Name.Should().Be("Nora En Pure");
+            result.Songs.Should().NotBeNullOrEmpty();
+            result.Songs.Should().HaveCount(2);
+            result.Songs.Any(s => s.Title == "Wetlands").Should().BeTrue();
+            result.Songs.Any(s => s.Title == "Bartok").Should().BeTrue();
         }
     }
 }
