@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Simplic.Boilerplate.SchemaRegistry
 {
@@ -37,5 +38,6 @@ namespace Simplic.Boilerplate.SchemaRegistry
         /// Gets or sets the phone numbers.
         /// </summary>
         IList<PhoneNumber> PhoneNumbers { get; set; }
+        Guid Id { get; }
     }
 }

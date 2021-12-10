@@ -23,5 +23,6 @@ namespace Simplic.Boilerplate.SchemaRegistry
         /// Gets or sets the addresses.
         /// </summary>
         IList<Address> Addresses { get; set; }
+        Guid Id { get; }
     }
 }
