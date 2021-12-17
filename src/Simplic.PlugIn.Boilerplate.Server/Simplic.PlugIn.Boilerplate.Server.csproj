@@ -69,6 +69,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Simplic.Collaboration">
+      <Version>1.0.400</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Collaboration.Hub">
+      <Version>1.0.1400</Version>
+    </PackageReference>
     <PackageReference Include="Simplic.Data.MongoDB">
       <Version>1.1.721.1118</Version>
     </PackageReference>

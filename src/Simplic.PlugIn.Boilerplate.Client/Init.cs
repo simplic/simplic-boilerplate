@@ -1,5 +1,6 @@
 ﻿using Unity;
 using Simplic.Boilerplate.Client;
+using System.Reflection;
 
 namespace Simplic.PlugIn.Boilerplate.Client
 {
@@ -15,6 +16,8 @@ namespace Simplic.PlugIn.Boilerplate.Client
 
             container.RegisterType<IContactClient, ContactClient>();
             container.RegisterType<IContactHubClient, ContactHubClient>();
+
+            Assembly.Load("Simplic.Boilerplate.UI");
         }
     }
 }

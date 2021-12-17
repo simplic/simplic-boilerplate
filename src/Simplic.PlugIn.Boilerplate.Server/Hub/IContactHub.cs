@@ -10,11 +10,6 @@ namespace Simplic.PlugIn.Boilerplate.Server
     /// </summary>
     public interface IContactHub : IHub
     {
-        /// <summary>
-        /// Asynchronously retrieves a contact.
-        /// </summary>
-        /// <param name="id">Identifer of the contact.</param>
-        /// <returns>Task of contact model.</returns>
-        Task<ContactModel> GetAsync(Guid id);
+
     }
 }

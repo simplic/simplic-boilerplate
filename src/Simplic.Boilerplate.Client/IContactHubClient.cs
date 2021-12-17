@@ -9,11 +9,6 @@ namespace Simplic.Boilerplate.Client
     /// </summary>
     public interface IContactHubClient
     {
-        /// <summary>
-        /// Retrieves a contact model.
-        /// </summary>
-        /// <param name="id">Identifier of the contact model.</param>
-        /// <returns>Task of contact model.</returns>
-        Task<ContactModel> GetAsync(Guid id);
+
     }
 }

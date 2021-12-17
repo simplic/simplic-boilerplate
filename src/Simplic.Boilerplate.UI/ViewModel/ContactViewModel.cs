@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Simplic.Framework.UI;
+using Simplic.Studio.UI;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Simplic.Boilerplate.UI
@@ -6,8 +8,15 @@ namespace Simplic.Boilerplate.UI
     /// <summary>
     /// View model of the contact.
     /// </summary>
-    public class ContactViewModel
+    public class ContactViewModel : Collaboration.UI.CollaborationViewModel<Contact>, IWindowViewModel<Contact>
     {
+        public void Initialize(Contact model)
+        {
+            Model = model;
+        }
+
+        protected override Guid GetId() => Guid;
+
         /// <summary>
         /// Gets or sets the guid.
         /// </summary>
@@ -22,5 +31,7 @@ namespace Simplic.Boilerplate.UI
         /// Gets or sets addresses.
         /// </summary>
         public ObservableCollection<AddressViewModel> Addresses { get; set; } = new ObservableCollection<AddressViewModel>();
+
+        public Contact Model { get; set; }
     }
 }

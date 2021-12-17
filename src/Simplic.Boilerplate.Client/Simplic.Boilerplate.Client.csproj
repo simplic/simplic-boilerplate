@@ -54,6 +54,9 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client">
       <Version>5.2.7</Version>
     </PackageReference>
+    <PackageReference Include="Simplic.Collaboration.Client">
+      <Version>1.0.1400</Version>
+    </PackageReference>
     <PackageReference Include="Simplic.Configuration">
       <Version>7.0.321.705</Version>
     </PackageReference>

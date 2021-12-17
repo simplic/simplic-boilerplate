@@ -5,14 +5,16 @@ using Simplic.Boilerplate.Shared;
 namespace Simplic.Boilerplate.Client
 {
     /// <inheritdoc cref="IContactHubClient"/>
-    public class ContactHubClient : WebApi.Client.HubClientBase, IContactHubClient
+    public class ContactHubClient : Collaboration.Client.CollaborationClient<ContactModel>, IContactHubClient
     {
         /// <summary>
         /// Initializes a new instance of the contact hub client.
         /// </summary>
         /// <param name="client">Client.</param>
         /// <param name="connectionConfigurationService">Connection configuration service.</param>
-        protected ContactHubClient(WebApi.Client.IClient client, Configuration.IConnectionConfigurationService connectionConfigurationService) : base(client, connectionConfigurationService)
+        public ContactHubClient(WebApi.Client.IClient client
+            , Configuration.IConnectionConfigurationService connectionConfigurationService)
+            : base(client, connectionConfigurationService)
         {
         }
 
@@ -26,9 +28,9 @@ namespace Simplic.Boilerplate.Client
         }
 
         /// <inheritdoc/>
-        public async Task<ContactModel> GetAsync(Guid id)
+        public async Task<ContactModel> Get(Guid id)
         {
-            return await Proxy.Invoke<ContactModel>(nameof(GetAsync), id);
+            return await Proxy.Invoke<ContactModel>(nameof(Get), id);
         }
 
         /// <summary>
