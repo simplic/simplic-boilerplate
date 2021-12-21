@@ -60,10 +60,6 @@
       <Project>{48EA2864-5A47-4795-B3FC-480308BCDC3D}</Project>
       <Name>Simplic.Boilerplate.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Simplic.Boilerplate\Simplic.Boilerplate.csproj">
-      <Project>{b5e3b199-808b-418b-b8b5-ded1cee140d4}</Project>
-      <Name>Simplic.Boilerplate</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\ContactWindow.xaml">
@@ -76,10 +72,10 @@
       <Version>2.0.6</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Collaboration.Client">
-      <Version>1.0.1400</Version>
+      <Version>1.0.1500</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Collaboration.UI">
-      <Version>1.0.900</Version>
+      <Version>1.0.1800</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Configuration">
       <Version>7.0.321.705</Version>
@@ -92,6 +88,9 @@
     </PackageReference>
     <PackageReference Include="Simplic.Studio.UI">
       <Version>1.6.2221.923</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Studio.UI.Input">
+      <Version>1.5.821.718</Version>
     </PackageReference>
     <PackageReference Include="Simplic.UI">
       <Version>7.2.1121.812</Version>

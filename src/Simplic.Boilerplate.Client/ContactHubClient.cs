@@ -27,12 +27,6 @@ namespace Simplic.Boilerplate.Client
             base.Initialize(connectionName);
         }
 
-        /// <inheritdoc/>
-        public async Task<ContactModel> Get(Guid id)
-        {
-            return await Proxy.Invoke<ContactModel>(nameof(Get), id);
-        }
-
         /// <summary>
         /// Gets the hub name ContactHub
         /// </summary>
