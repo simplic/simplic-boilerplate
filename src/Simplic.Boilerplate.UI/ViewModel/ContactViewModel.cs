@@ -18,7 +18,7 @@ namespace Simplic.Boilerplate.UI
     {
         private readonly IClient client;
         private readonly IConnectionConfigurationService configurationService;
-        
+
         public ContactViewModel()
         {
 
@@ -51,17 +51,15 @@ namespace Simplic.Boilerplate.UI
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        public string Name 
+        public string Name
         {
-            get => Model.Name; 
-            set => PropertySetter(value, (v) => Model.Name = v); 
+            get => Model.Name;
+            set => PropertySetter(value, (v) => Model.Name = v, callOthers: true);
         }
 
         /// <summary>
         /// Gets or sets addresses.
         /// </summary>
         public ObservableCollection<AddressViewModel> Addresses { get; set; } = new ObservableCollection<AddressViewModel>();
-
-        public ContactModel Model { get; set; }
     }
 }

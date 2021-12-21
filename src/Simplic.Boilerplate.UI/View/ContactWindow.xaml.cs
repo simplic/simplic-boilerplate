@@ -11,6 +11,8 @@ namespace Simplic.Boilerplate.UI
         public ContactWindow()
         {
             InitializeComponent();
+
+            UseLocking = false;
         }
 
         public override void OnOpenPage(WindowOpenPageEventArg e)
