@@ -12,9 +12,13 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <simplic:TextBox Text="{Binding Name}" MinWidth="150" Grid.Row="0"></simplic:TextBox>
         <simplic:TextBox Text="" MinWidth="150" Grid.Row="1"></simplic:TextBox>
-        <ListBox ItemsSource="{Binding Others}" Grid.Row="2"></ListBox>
+        <ListBox ItemsSource="{Binding Addresses}" DisplayMemberPath="Id" Grid.Row="2"></ListBox>
+        <Button Content="Add" Command="{Binding AddAddressCommand}" Grid.Row="3"></Button>
+        <ListBox ItemsSource="{Binding Others}" DisplayMemberPath="Username" Grid.Row="4"></ListBox>
     </Grid>
 </simplic:DefaultRibbonWindow>

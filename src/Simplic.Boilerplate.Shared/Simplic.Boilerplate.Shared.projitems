@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ContactBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Request\UpdateContactRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Request\CreateContactRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\AddressModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Response\ContactModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Response\DeleteContactResponse.cs" />
   </ItemGroup>

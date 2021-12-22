@@ -1,7 +1,10 @@
 ﻿using CommonServiceLocator;
 using Simplic.Boilerplate.Client;
 using Simplic.Boilerplate.Shared;
+using Simplic.Collaboration.Client;
+using Simplic.Collaboration.UI;
 using Simplic.Configuration;
+using Simplic.UI.MVC;
 using Simplic.WebApi.Client;
 using System;
 using System.Collections.ObjectModel;
@@ -25,12 +28,30 @@ namespace Simplic.Boilerplate.UI
             Client = new ContactHubClient(client, configurationService);
 
             RegisterProperty(x => x.Name, (x) => Model.Name = x);
+
+            AddAddressCommand = new RelayCommand((o) =>
+            {
+                Addresses.Add(new AddressViewModel
+                {
+                    Model = new AddressModel
+                    {
+                        Id = Guid.NewGuid(),
+                    }, Parent = this
+                });
+            });
         }
 
         public override async Task Initialize()
         {
             Client.Initialize();
             await base.Initialize();
+        }
+
+        public override async Task<DataSession> Edit(Guid id)
+        {
+            var session = await base.Edit(id);
+            Addresses = new CollaborationObervableCollection<AddressViewModel, AddressModel>(Id, nameof(Addresses), "Id", Client);
+            return session;
         }
 
         public override void OnClose()
@@ -59,9 +80,14 @@ namespace Simplic.Boilerplate.UI
             set => PropertySetter(value, (v) => Model.Name = v, callOthers: true);
         }
 
+        public RelayCommand AddAddressCommand
+        {
+            get; set;
+        }
+
         /// <summary>
         /// Gets or sets addresses.
         /// </summary>
-        public ObservableCollection<AddressViewModel> Addresses { get; set; } = new ObservableCollection<AddressViewModel>();
+        public CollaborationObervableCollection<AddressViewModel, AddressModel> Addresses { get; set; }
     }
 }

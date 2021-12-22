@@ -72,10 +72,10 @@
       <Version>2.0.6</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Collaboration.Client">
-      <Version>1.0.2000</Version>
+      <Version>1.0.2300</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Collaboration.UI">
-      <Version>1.0.2900</Version>
+      <Version>1.0.3500</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Configuration">
       <Version>7.0.321.705</Version>

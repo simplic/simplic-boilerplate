@@ -1,15 +1,13 @@
-﻿using Simplic.Boilerplate.Shared;
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Simplic.Boilerplate.UI
+namespace Simplic.Boilerplate.Shared
 {
-    /// <summary>
-    /// View model of the address.
-    /// </summary>
-    public class AddressViewModel : Collaboration.UI.CollaborationItemViewModelBase<AddressModel>
+    public class AddressModel
     {
-        public Guid Id => Model.Id;
+
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the street.
@@ -35,10 +33,5 @@ namespace Simplic.Boilerplate.UI
         /// Gets or sets the country.
         /// </summary>
         public string Country { get; set; }
-
-        /// <summary>
-        /// Gets or sets the phone numbers.
-        /// </summary>
-        public ObservableCollection<PhoneNumberViewModel> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumberViewModel>();
     }
 }
