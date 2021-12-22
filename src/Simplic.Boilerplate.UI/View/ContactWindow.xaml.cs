@@ -15,17 +15,24 @@ namespace Simplic.Boilerplate.UI
             UseLocking = false;
         }
 
+        public ContactViewModel VM { get; set; }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            VM.OnClose();
+            base.OnClosed(e);
+        }
+
         public override void OnOpenPage(WindowOpenPageEventArg e)
         {
             var id = (Guid)e.CurrentObject;
-
-            var vm = new ContactViewModel();
+            VM = new ContactViewModel();
 
             Dispatcher.Invoke(async () =>
             {
-                await vm.Initialize();
-                await vm.Edit(id);
-                DataContext = vm;
+                await VM.Initialize();
+                await VM.Edit(id);
+                DataContext = VM;
             });
 
             base.OnOpenPage(e);

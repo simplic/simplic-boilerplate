@@ -2,8 +2,6 @@
 using Simplic.Boilerplate.Client;
 using Simplic.Boilerplate.Shared;
 using Simplic.Configuration;
-using Simplic.Framework.UI;
-using Simplic.Studio.UI;
 using Simplic.WebApi.Client;
 using System;
 using System.Collections.ObjectModel;
@@ -35,10 +33,14 @@ namespace Simplic.Boilerplate.UI
             await base.Initialize();
         }
 
-        internal async Task Edit(Guid id)
+        public override void OnClose()
         {
-            var session = await Client.Join(id);
-            Model = await HubClient.Get(id);
+            System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                HubClient.Leave(Model.Id, false, false);
+            });
+
+            base.OnClose();
         }
 
         protected override Guid GetId() => Id;
