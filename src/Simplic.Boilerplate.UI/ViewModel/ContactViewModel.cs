@@ -22,7 +22,6 @@ namespace Simplic.Boilerplate.UI
 
         public ContactViewModel()
         {
-
             client = ServiceLocator.Current.GetInstance<IClient>();
             configurationService = ServiceLocator.Current.GetInstance<IConnectionConfigurationService>();
             Client = new ContactHubClient(client, configurationService);
@@ -38,6 +37,14 @@ namespace Simplic.Boilerplate.UI
                         Id = Guid.NewGuid(),
                     }, Parent = this
                 });
+            });
+
+            RemoveAddressCommand = new RelayCommand((o) =>
+            {
+                if (SelectedAddress != null)
+                {
+                    Addresses.Remove(SelectedAddress);
+                }
             });
         }
 
@@ -80,14 +87,13 @@ namespace Simplic.Boilerplate.UI
             set => PropertySetter(value, (v) => Model.Name = v, callOthers: true);
         }
 
-        public RelayCommand AddAddressCommand
-        {
-            get; set;
-        }
+        public RelayCommand AddAddressCommand { get; set; }
+        public RelayCommand RemoveAddressCommand { get; set; }
 
         /// <summary>
         /// Gets or sets addresses.
         /// </summary>
         public CollaborationObervableCollection<AddressViewModel, AddressModel> Addresses { get; set; }
+        public AddressViewModel SelectedAddress { get; set; }
     }
 }

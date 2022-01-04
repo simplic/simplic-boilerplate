@@ -12,13 +12,21 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <simplic:TextBox Text="{Binding Name}" MinWidth="150" Grid.Row="0"></simplic:TextBox>
-        <simplic:TextBox Text="" MinWidth="150" Grid.Row="1"></simplic:TextBox>
-        <ListBox ItemsSource="{Binding Addresses}" DisplayMemberPath="Id" Grid.Row="2"></ListBox>
-        <Button Content="Add" Command="{Binding AddAddressCommand}" Grid.Row="3"></Button>
-        <ListBox ItemsSource="{Binding Others}" DisplayMemberPath="Username" Grid.Row="4"></ListBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <simplic:TextBox Text="{Binding Name}" MinWidth="150" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <ListBox ItemsSource="{Binding Addresses}" SelectedItem="{Binding SelectedAddress}"
+                 DisplayMemberPath="Id" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+        <Button Content="Add" Command="{Binding AddAddressCommand}" Grid.Row="2" Grid.Column="0"/>
+        <Button Content="Remove" Command="{Binding RemoveAddressCommand}" Grid.Row="2" Grid.Column="1"/>
+
+        <Label Content="Other Users:"  Grid.Row="3"/>
+        <ListBox ItemsSource="{Binding Others}" DisplayMemberPath="Username" Grid.Row="4"/>
     </Grid>
 </simplic:DefaultRibbonWindow>
