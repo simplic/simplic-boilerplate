@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6106253c-68ea-412a-8507-70185c08c934</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Simplic.Boilerplate.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ContactBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Request\UpdateContactRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Request\CreateContactRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\AddressModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\ContactModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response\DeleteContactResponse.cs" />
+  </ItemGroup>
+</Project>

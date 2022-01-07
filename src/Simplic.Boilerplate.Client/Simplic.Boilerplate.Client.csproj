@@ -41,7 +41,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactClient.cs" />
+    <Compile Include="IContactHubClient.cs" />
+    <Compile Include="ContactHubClient.cs" />
+    <Compile Include="IContactClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.SignalR.Client">
+      <Version>2.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Collaboration.Client">
+      <Version>1.0.2300</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.Configuration">
+      <Version>7.0.321.705</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.WebApi.Client">
+      <Version>1.0.421.327</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="..\Simplic.Boilerplate.Shared\Simplic.Boilerplate.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

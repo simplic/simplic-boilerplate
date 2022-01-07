@@ -41,14 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactEventService.cs" />
     <Compile Include="ContactService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Simplic.Boilerplate.SchemaRegistry\Simplic.Boilerplate.SchemaRegistry.csproj">
+      <Project>{be34512c-973b-47b1-98d8-605b5741763a}</Project>
+      <Name>Simplic.Boilerplate.SchemaRegistry</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Simplic.Boilerplate\Simplic.Boilerplate.csproj">
       <Project>{b5e3b199-808b-418b-b8b5-ded1cee140d4}</Project>
       <Name>Simplic.Boilerplate</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Simplic.Data">
+      <Version>1.7.721.1118</Version>
+    </PackageReference>
+    <PackageReference Include="Simplic.MessageBroker">
+      <Version>1.5.120.1201</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
