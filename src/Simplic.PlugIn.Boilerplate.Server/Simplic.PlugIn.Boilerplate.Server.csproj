@@ -73,7 +73,7 @@
       <Version>1.0.800</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Collaboration.Hub">
-      <Version>1.0.3100</Version>
+      <Version>1.0.7100</Version>
     </PackageReference>
     <PackageReference Include="Simplic.Data.MongoDB">
       <Version>1.1.721.1118</Version>

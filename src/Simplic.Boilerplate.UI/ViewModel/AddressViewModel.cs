@@ -11,10 +11,19 @@ namespace Simplic.Boilerplate.UI
     {
         public Guid Id => Model.Id;
 
+        public AddressViewModel()
+        {
+            RegisterProperty(x => x.Street, (x) => Model.Street = x);
+        }
+
         /// <summary>
         /// Gets or sets the street.
         /// </summary>
-        public string Street { get; set; }
+        public string Street
+        {
+            get => Model.Street;
+            set => PropertySetter(value, (v) => Model.Street = v, callOthers: true);
+        }
 
         /// <summary>
         /// Gets or sets the house number.

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Simplic.Boilerplate
 {
@@ -7,6 +8,8 @@ namespace Simplic.Boilerplate
     /// </summary>
     public class Address
     {
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Gets or sets the street.
         /// </summary>

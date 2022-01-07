@@ -21,7 +21,16 @@
         </Grid.ColumnDefinitions>
         <simplic:TextBox Text="{Binding Name}" MinWidth="150" Grid.Row="0" Grid.ColumnSpan="2"/>
         <ListBox ItemsSource="{Binding Addresses}" SelectedItem="{Binding SelectedAddress}"
-                 DisplayMemberPath="Id" Grid.Row="1" Grid.ColumnSpan="2"/>
+                 Grid.Row="1" Grid.ColumnSpan="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Id}" />
+                        <TextBox Text="{Binding Street, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Width="100" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <Button Content="Add" Command="{Binding AddAddressCommand}" Grid.Row="2" Grid.Column="0"/>
         <Button Content="Remove" Command="{Binding RemoveAddressCommand}" Grid.Row="2" Grid.Column="1"/>

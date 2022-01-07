@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Simplic.Boilerplate.Shared
 {
@@ -12,5 +13,7 @@ namespace Simplic.Boilerplate.Shared
         /// Gets or sets the id.
         /// </summary>
         public Guid Id { get; set; }
+
+        public IList<AddressModel> Addresses { get; set; } = new List<AddressModel>();
     }
 }

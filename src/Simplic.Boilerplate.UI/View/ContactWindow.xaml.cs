@@ -28,9 +28,10 @@ namespace Simplic.Boilerplate.UI
             var id = (Guid)e.CurrentObject;
             VM = new ContactViewModel();
 
+            VM.Initialize();
+
             Dispatcher.Invoke(async () =>
             {
-                await VM.Initialize();
                 await VM.Edit(id);
                 DataContext = VM;
             });

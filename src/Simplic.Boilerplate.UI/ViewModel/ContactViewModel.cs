@@ -48,16 +48,30 @@ namespace Simplic.Boilerplate.UI
             });
         }
 
-        public override async Task Initialize()
+        public override void Initialize()
         {
             Client.Initialize();
-            await base.Initialize();
+
+            base.Initialize();
         }
 
         public override async Task<DataSession> Edit(Guid id)
         {
             var session = await base.Edit(id);
-            Addresses = new CollaborationObervableCollection<AddressViewModel, AddressModel>(Id, nameof(Addresses), "Id", Client);
+            Addresses = new CollaborationObervableCollection<AddressViewModel, AddressModel>(this, nameof(Addresses), "Id", Client);
+
+            using (_ = Addresses.SuspendNotifications())
+            {
+                foreach (var address in Model.Addresses)
+                {
+                    Addresses.Add(new AddressViewModel()
+                    {
+                        Model = address,
+                        Parent = this
+                    });
+                }
+            }
+
             return session;
         }
 
